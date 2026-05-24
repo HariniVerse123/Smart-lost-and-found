@@ -108,5 +108,105 @@ void searchLostItem()
         printf("\nNo Item Found!\n");
     }
 }
+void addFoundItem()
+{
+    printf("\nEnter Found Item ID: ");
+    scanf("%d", &found[foundCount].id);
+
+    printf("Enter Item Name: ");
+    scanf(" %[^\n]", found[foundCount].name);
+
+    printf("Enter Item Category: ");
+    scanf(" %[^\n]", found[foundCount].category);
+
+    printf("Enter Item Description: ");
+    scanf(" %[^\n]", found[foundCount].description);
+
+    printf("Enter Found Location: ");
+    scanf(" %[^\n]", found[foundCount].location);
+
+    printf("Enter Finder Name: ");
+    scanf(" %[^\n]", found[foundCount].finder);
+
+    foundCount++;
+
+    printf("\nFound Item Added Successfully!\n");
+}
+
+// ==========================================
+// Part 3 - Member 3
+// Display Found Items
+// ==========================================
+
+void showFoundItems()
+{
+    int i;
+
+    if(foundCount == 0)
+    {
+        printf("\nNo Found Items!\n");
+        return;
+    }
+
+    printf("\n========== FOUND ITEMS ==========\n");
+
+    for(i = 0; i < foundCount; i++)
+    {
+        printf("\nItem %d", i + 1);
+
+        printf("\nID: %d", found[i].id);
+        printf("\nName: %s", found[i].name);
+        printf("\nCategory: %s", found[i].category);
+        printf("\nDescription: %s", found[i].description);
+        printf("\nLocation: %s", found[i].location);
+        printf("\nFinder: %s\n", found[i].finder);
+    }
+}
+
+// ==========================================
+// Part 3 - Member 3
+// Match Lost and Found Items
+// ==========================================
+
+void matchItems()
+{
+    int i;
+    int j;
+    int match = 0;
+
+    for(i = 0; i < lostCount; i++)
+    {
+        for(j = 0; j < foundCount; j++)
+        {
+            // Compare both name and category
+
+            if(strcmp(lost[i].name, found[j].name) == 0 &&
+               strcmp(lost[i].category, found[j].category) == 0)
+            {
+                printf("\n================================");
+                printf("\n POSSIBLE MATCH FOUND!");
+                printf("\n================================");
+
+                printf("\nItem Name: %s", lost[i].name);
+
+                printf("\nCategory: %s", lost[i].category);
+
+                printf("\nOwner Name: %s", lost[i].owner);
+
+                printf("\nFound By: %s", found[j].finder);
+
+                printf("\nFound Location: %s\n",
+                       found[j].location);
+
+                match = 1;
+            }
+        }
+    }
+
+    if(match == 0)
+    {
+        printf("\nNo Matching Items Found!\n");
+    }
+}
 
 
