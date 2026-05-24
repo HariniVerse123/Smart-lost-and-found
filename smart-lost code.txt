@@ -2,3 +2,16 @@
 #include <string.h>
 
 #define MAX 100
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+struct LostItem
+{
+    int id;
+    char name[50];
+    char category[50];
+    char description[100];
+    char location[100];
+    char owner[50];
+};
