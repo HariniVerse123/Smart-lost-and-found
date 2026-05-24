@@ -4,15 +4,22 @@
 #define MAX 100
 struct FoundItem
 {
-    int id;
     char name[50];
     char category[50];
     char description[100];
     char location[100];
     char finder[50];
 };
+struct LostItem
+{
+    char name[50];
+    char category[50];
+    char description[100];
+    char location[100];
+    char owner[50];
+};
 
-// Arrays
+
 
 struct LostItem lost[MAX];
 struct FoundItem found[MAX];
@@ -31,9 +38,6 @@ void saveData();
 void loadData();
 void addLostItem()
 {
-    printf("\nEnter Lost Item ID: ");
-    scanf("%d", &lost[lostCount].id);
-
     printf("Enter Item Name: ");
     scanf(" %[^\n]", lost[lostCount].name);
 
@@ -69,7 +73,6 @@ void showLostItems()
     {
         printf("\nItem %d", i + 1);
 
-        printf("\nID: %d", lost[i].id);
         printf("\nName: %s", lost[i].name);
         printf("\nCategory: %s", lost[i].category);
         printf("\nDescription: %s", lost[i].description);
@@ -92,7 +95,6 @@ void searchLostItem()
         {
             printf("\nItem Found!\n");
 
-            printf("\nID: %d", lost[i].id);
             printf("\nName: %s", lost[i].name);
             printf("\nCategory: %s", lost[i].category);
             printf("\nDescription: %s", lost[i].description);
@@ -110,8 +112,6 @@ void searchLostItem()
 }
 void addFoundItem()
 {
-    printf("\nEnter Found Item ID: ");
-    scanf("%d", &found[foundCount].id);
 
     printf("Enter Item Name: ");
     scanf(" %[^\n]", found[foundCount].name);
@@ -154,7 +154,6 @@ void showFoundItems()
     {
         printf("\nItem %d", i + 1);
 
-        printf("\nID: %d", found[i].id);
         printf("\nName: %s", found[i].name);
         printf("\nCategory: %s", found[i].category);
         printf("\nDescription: %s", found[i].description);
@@ -224,7 +223,6 @@ void saveData()
     {
         fprintf(fp1,
         "%d|%s|%s|%s|%s|%s\n",
-        lost[i].id,
         lost[i].name,
         lost[i].category,
         lost[i].description,
@@ -242,7 +240,6 @@ void saveData()
     {
         fprintf(fp2,
         "%d|%s|%s|%s|%s|%s\n",
-        found[i].id,
         found[i].name,
         found[i].category,
         found[i].description,
@@ -273,7 +270,6 @@ void loadData()
     {
         while(fscanf(fp1,
         "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
-        &lost[lostCount].id,
         lost[lostCount].name,
         lost[lostCount].category,
         lost[lostCount].description,
@@ -294,7 +290,6 @@ void loadData()
     {
         while(fscanf(fp2,
         "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
-        &found[foundCount].id,
         found[foundCount].name,
         found[foundCount].category,
         found[foundCount].description,
@@ -337,9 +332,7 @@ int main()
 
         printf("\n6. Match Lost and Found Items");
 
-        printf("\n7. Save Data");
-
-        printf("\n8. Save and Exit");
+        printf("\n7. Save and Exit");
 
         printf("\n\nEnter Your Choice: ");
         scanf("%d", &choice);
@@ -372,10 +365,6 @@ int main()
 
             case 7:
                 saveData();
-                break;
-
-            case 8:
-                saveData();
                 printf("\nProgram Closed Successfully.\n");
                 break;
 
@@ -383,7 +372,7 @@ int main()
                 printf("\nInvalid Choice!\n");
         }
 
-    } while(choice != 8);
+    } while(choice != 7);
 
     return 0;
 }
