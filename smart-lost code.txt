@@ -19,3 +19,13 @@ struct FoundItem found[MAX];
 
 int lostCount = 0;
 int foundCount = 0;
+void addLostItem();
+void showLostItems();
+void searchLostItem();
+
+void addFoundItem();
+void showFoundItems();
+void matchItems();
+
+void saveData();
+void loadData();
