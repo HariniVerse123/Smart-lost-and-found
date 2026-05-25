@@ -133,11 +133,6 @@ void addFoundItem()
     printf("\nFound Item Added Successfully!\n");
 }
 
-// ==========================================
-// Part 3 - Member 3
-// Display Found Items
-// ==========================================
-
 void showFoundItems()
 {
     int i;
@@ -161,11 +156,6 @@ void showFoundItems()
         printf("\nFinder: %s\n", found[i].finder);
     }
 }
-
-// ==========================================
-// Part 3 - Member 3
-// Match Lost and Found Items
-// ==========================================
 
 void matchItems()
 {
@@ -252,11 +242,6 @@ void saveData()
     printf("\nData Saved Successfully!\n");
 }
 
-// ==========================================
-// Part 4 - Member 4
-// Load Data from Files
-// ==========================================
-
 void loadData()
 {
     FILE *fp1;
@@ -302,11 +287,6 @@ void loadData()
         fclose(fp2);
     }
 }
-
-// ==========================================
-// Part 1 - HariniVerse123
-// Main Function
-// ==========================================
 
 int main()
 {
