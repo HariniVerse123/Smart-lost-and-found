@@ -167,7 +167,7 @@ void matchItems()
     {
         for(j = 0; j < foundCount; j++)
         {
-            // Compare both name and category
+            
 
             if(strcmp(lost[i].name, found[j].name) == 0 &&
                strcmp(lost[i].category, found[j].category) == 0)
@@ -197,10 +197,6 @@ void matchItems()
         printf("\nNo Matching Items Found!\n");
     }
 }
-// ==========================================
-// Part 4 - Member 4
-// Save Data into Files
-// ==========================================
 
 void saveData()
 {
@@ -208,8 +204,6 @@ void saveData()
     FILE *fp2;
 
     int i;
-
-    // Save Lost Items
 
     fp1 = fopen("lost_items.txt", "w");
 
@@ -225,8 +219,6 @@ void saveData()
     }
 
     fclose(fp1);
-
-    // Save Found Items
 
     fp2 = fopen("found_items.txt", "w");
 
@@ -245,11 +237,6 @@ void saveData()
 
     printf("\nData Saved Successfully!\n");
 }
-
-// ==========================================
-// Part 4 - Member 4
-// Load Data from Files
-// ==========================================
 
 void loadData()
 {
@@ -301,8 +288,6 @@ void loadData()
 int main()
 {
     int choice;
-
-    // Load saved data
 
     loadData();
 
