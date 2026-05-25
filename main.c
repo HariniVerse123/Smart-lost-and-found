@@ -1,0 +1,353 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+struct FoundItem
+{
+    char name[50];
+    char category[50];
+    char description[100];
+    char location[100];
+    char finder[50];
+};
+struct LostItem
+{
+    char name[50];
+    char category[50];
+    char description[100];
+    char location[100];
+    char owner[50];
+};
+
+
+
+struct LostItem lost[MAX];
+struct FoundItem found[MAX];
+
+int lostCount = 0;
+int foundCount = 0;
+void addLostItem();
+void showLostItems();
+void searchLostItem();
+
+void addFoundItem();
+void showFoundItems();
+void matchItems();
+
+void saveData();
+void loadData();
+void addLostItem()
+{
+    printf("Enter Item Name: ");
+    scanf(" %[^\n]", lost[lostCount].name);
+
+    printf("Enter Item Category: ");
+    scanf(" %[^\n]", lost[lostCount].category);
+
+    printf("Enter Item Description: ");
+    scanf(" %[^\n]", lost[lostCount].description);
+
+    printf("Enter Last Seen Location: ");
+    scanf(" %[^\n]", lost[lostCount].location);
+
+    printf("Enter Owner Name: ");
+    scanf(" %[^\n]", lost[lostCount].owner);
+
+    lostCount++;
+
+    printf("\nLost Item Added Successfully!\n");
+}
+void showLostItems()
+{
+    int i;
+
+    if(lostCount == 0)
+    {
+        printf("\nNo Lost Items Found!\n");
+        return;
+    }
+
+    printf("\n========== LOST ITEMS ==========\n");
+
+    for(i = 0; i < lostCount; i++)
+    {
+        printf("\nItem %d", i + 1);
+
+        printf("\nName: %s", lost[i].name);
+        printf("\nCategory: %s", lost[i].category);
+        printf("\nDescription: %s", lost[i].description);
+        printf("\nLast Seen Location: %s", lost[i].location);
+        printf("\nOwner: %s\n", lost[i].owner);
+    }
+}
+void searchLostItem()
+{
+    char searchName[50];
+    int i;
+    int foundItem = 0;
+
+    printf("\nEnter Item Name to Search: ");
+    scanf(" %[^\n]", searchName);
+
+    for(i = 0; i < lostCount; i++)
+    {
+        if(strcmp(lost[i].name, searchName) == 0)
+        {
+            printf("\nItem Found!\n");
+
+            printf("\nName: %s", lost[i].name);
+            printf("\nCategory: %s", lost[i].category);
+            printf("\nDescription: %s", lost[i].description);
+            printf("\nLocation: %s", lost[i].location);
+            printf("\nOwner: %s\n", lost[i].owner);
+
+            foundItem = 1;
+        }
+    }
+
+    if(foundItem == 0)
+    {
+        printf("\nNo Item Found!\n");
+    }
+}
+void addFoundItem()
+{
+
+    printf("Enter Item Name: ");
+    scanf(" %[^\n]", found[foundCount].name);
+
+    printf("Enter Item Category: ");
+    scanf(" %[^\n]", found[foundCount].category);
+
+    printf("Enter Item Description: ");
+    scanf(" %[^\n]", found[foundCount].description);
+
+    printf("Enter Found Location: ");
+    scanf(" %[^\n]", found[foundCount].location);
+
+    printf("Enter Finder Name: ");
+    scanf(" %[^\n]", found[foundCount].finder);
+
+    foundCount++;
+
+    printf("\nFound Item Added Successfully!\n");
+}
+
+void showFoundItems()
+{
+    int i;
+
+    if(foundCount == 0)
+    {
+        printf("\nNo Found Items!\n");
+        return;
+    }
+
+    printf("\n========== FOUND ITEMS ==========\n");
+
+    for(i = 0; i < foundCount; i++)
+    {
+        printf("\nItem %d", i + 1);
+
+        printf("\nName: %s", found[i].name);
+        printf("\nCategory: %s", found[i].category);
+        printf("\nDescription: %s", found[i].description);
+        printf("\nLocation: %s", found[i].location);
+        printf("\nFinder: %s\n", found[i].finder);
+    }
+}
+
+void matchItems()
+{
+    int i;
+    int j;
+    int match = 0;
+
+    for(i = 0; i < lostCount; i++)
+    {
+        for(j = 0; j < foundCount; j++)
+        {
+            
+
+            if(strcmp(lost[i].name, found[j].name) == 0 &&
+               strcmp(lost[i].category, found[j].category) == 0)
+            {
+                printf("\n================================");
+                printf("\n POSSIBLE MATCH FOUND!");
+                printf("\n================================");
+
+                printf("\nItem Name: %s", lost[i].name);
+
+                printf("\nCategory: %s", lost[i].category);
+
+                printf("\nOwner Name: %s", lost[i].owner);
+
+                printf("\nFound By: %s", found[j].finder);
+
+                printf("\nFound Location: %s\n",
+                       found[j].location);
+
+                match = 1;
+            }
+        }
+    }
+
+    if(match == 0)
+    {
+        printf("\nNo Matching Items Found!\n");
+    }
+}
+
+void saveData()
+{
+    FILE *fp1;
+    FILE *fp2;
+
+    int i;
+
+    fp1 = fopen("lost_items.txt", "w");
+
+    for(i = 0; i < lostCount; i++)
+    {
+        fprintf(fp1,
+        "%d|%s|%s|%s|%s|%s\n",
+        lost[i].name,
+        lost[i].category,
+        lost[i].description,
+        lost[i].location,
+        lost[i].owner);
+    }
+
+    fclose(fp1);
+
+    fp2 = fopen("found_items.txt", "w");
+
+    for(i = 0; i < foundCount; i++)
+    {
+        fprintf(fp2,
+        "%d|%s|%s|%s|%s|%s\n",
+        found[i].name,
+        found[i].category,
+        found[i].description,
+        found[i].location,
+        found[i].finder);
+    }
+
+    fclose(fp2);
+
+    printf("\nData Saved Successfully!\n");
+}
+
+void loadData()
+{
+    FILE *fp1;
+    FILE *fp2;
+
+    // Load Lost Items
+
+    fp1 = fopen("lost_items.txt", "r");
+
+    if(fp1 != NULL)
+    {
+        while(fscanf(fp1,
+        "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
+        lost[lostCount].name,
+        lost[lostCount].category,
+        lost[lostCount].description,
+        lost[lostCount].location,
+        lost[lostCount].owner) != EOF)
+        {
+            lostCount++;
+        }
+
+        fclose(fp1);
+    }
+
+    // Load Found Items
+
+    fp2 = fopen("found_items.txt", "r");
+
+    if(fp2 != NULL)
+    {
+        while(fscanf(fp2,
+        "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
+        found[foundCount].name,
+        found[foundCount].category,
+        found[foundCount].description,
+        found[foundCount].location,
+        found[foundCount].finder) != EOF)
+        {
+            foundCount++;
+        }
+
+        fclose(fp2);
+    }
+}
+
+
+int main()
+{
+    int choice;
+
+    loadData();
+
+    do
+    {
+        printf("\n====================================");
+        printf("\n SMART LOST AND FOUND SYSTEM");
+        printf("\n====================================");
+
+        printf("\n1. Add Lost Item Request");
+        printf("\n2. Add Found Item Report");
+
+        printf("\n3. View Lost Item Requests");
+        printf("\n4. View Found Item Reports");
+
+        printf("\n5. Search Lost Item");
+
+        printf("\n6. Match Lost and Found Items");
+
+        printf("\n7. Save and Exit");
+
+        printf("\n\nEnter Your Choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                addLostItem();
+                break;
+
+            case 2:
+                addFoundItem();
+                break;
+
+            case 3:
+                showLostItems();
+                break;
+
+            case 4:
+                showFoundItems();
+                break;
+
+            case 5:
+                searchLostItem();
+                break;
+
+            case 6:
+                matchItems();
+                break;
+
+            case 7:
+                saveData();
+                printf("\nProgram Closed Successfully.\n");
+                break;
+
+            default:
+                printf("\nInvalid Choice!\n");
+        }
+
+    } while(choice != 7);
+
+    return 0;
+}
