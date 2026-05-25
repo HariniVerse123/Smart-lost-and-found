@@ -217,7 +217,6 @@ void saveData()
     {
         fprintf(fp1,
         "%d|%s|%s|%s|%s|%s\n",
-        lost[i].id,
         lost[i].name,
         lost[i].category,
         lost[i].description,
@@ -235,7 +234,6 @@ void saveData()
     {
         fprintf(fp2,
         "%d|%s|%s|%s|%s|%s\n",
-        found[i].id,
         found[i].name,
         found[i].category,
         found[i].description,
@@ -266,7 +264,6 @@ void loadData()
     {
         while(fscanf(fp1,
         "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
-        &lost[lostCount].id,
         lost[lostCount].name,
         lost[lostCount].category,
         lost[lostCount].description,
@@ -287,7 +284,6 @@ void loadData()
     {
         while(fscanf(fp2,
         "%d|%49[^|]|%49[^|]|%99[^|]|%99[^|]|%49[^\n]\n",
-        &found[foundCount].id,
         found[foundCount].name,
         found[foundCount].category,
         found[foundCount].description,
